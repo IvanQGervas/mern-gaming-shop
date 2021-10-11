@@ -17,7 +17,6 @@ const Main = () => {
 
   }, [])
 
-
   const verlo = () => {
 
     const numeros = games.map((e) => e.platform)
