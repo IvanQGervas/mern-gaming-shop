@@ -13,6 +13,9 @@ import cartContext from './context/cartContext'
 
 import data from './data'
 
+// Styles
+import './styles/styles.scss'
+
 
 function App() {
 
@@ -71,7 +74,7 @@ function App() {
   }, [])
 
   return (
-    <>
+    <div className="app">
       <searchContext.Provider value={{ search, setSearch }}>
         <gamesContext.Provider value={{ games, setGames }}>
           <cartContext.Provider value={{ cart, setCart, removeFromCart, setCartAndCheck, subtractAmountInCart }}>
@@ -83,7 +86,7 @@ function App() {
           </cartContext.Provider>
         </gamesContext.Provider>
       </searchContext.Provider>
-    </>
+    </div>
   );
 }
 
