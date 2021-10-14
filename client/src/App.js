@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     async function getDataGames(){
-
+      const {data} = await axios.get('http://localhost:3002/api/games')
       console.log('peticicion');
       setGames(data)
     }

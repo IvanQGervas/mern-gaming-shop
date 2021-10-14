@@ -7,6 +7,7 @@ import cartContext from '../../context/cartContext'
 
 import proovedores from '../../proovedores'
 
+
 const Details = (props) => {
 
   const { games, setGames } = useContext(gamesContext)
@@ -15,9 +16,9 @@ const Details = (props) => {
   const nameGame = props.location.pathname.split('/')[2]
 
   const [game] = games.filter(gm => gm.title === nameGame)
+  console.log(game);
 
-
-  const [{ cif }] = proovedores.filter(pr => pr.platform === game.platform)
+  // const [{ cif }] = proovedores.filter(pr => pr.platform === game.platform)
 
   const ratingClass = () => {
     if (game.rating > 80) {
@@ -45,8 +46,8 @@ const Details = (props) => {
         </div>
 
         <div className="data-provider">
-          <p>Plataforma: {game.platform}</p>
-          <p>Cif: {cif}</p>
+          <p>Plataforma: {game.platform[0].platform}</p>
+          <p>Cif: {game.platform[0].cif}</p>
         </div>
 
         <div className="conteiner-tags">
