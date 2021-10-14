@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import axios from 'axios';
 
 // Components
 import Header from './components/Header'
@@ -22,6 +23,15 @@ function App() {
   const [search, setSearch] = useState('')
   const [games, setGames] = useState([])
   const [cart, setCart] = useState([])
+
+  useEffect(() => {
+    async function getDataGames(){
+
+      console.log('peticicion');
+      setGames(data)
+    }
+    getDataGames()
+  }, [])
 
   const setCartAndCheck = (objGame) => {
 
@@ -67,11 +77,6 @@ function App() {
     const newCart = cart.filter((game, i) => i !== indexElement)
     setCart(newCart)
   }
-
-  useEffect(() => {
-    console.log('peticicion');
-    setGames(data)
-  }, [])
 
   return (
     <div className="app">
