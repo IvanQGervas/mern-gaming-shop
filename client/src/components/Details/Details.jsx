@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import queryString from 'query-string'
+
+import CheckIcon from '@mui/icons-material/Check';
 
 import gamesContext from '../../context/gamesContext'
 import cartContext from '../../context/cartContext'
@@ -13,22 +14,55 @@ const Details = (props) => {
 
   const nameGame = props.location.pathname.split('/')[2]
 
-  const [ game ] = games.filter(gm => gm.title === nameGame)
+  const [game] = games.filter(gm => gm.title === nameGame)
 
 
   const [{ cif }] = proovedores.filter(pr => pr.platform === game.platform)
 
+  const ratingClass = () => {
+    if (game.rating > 80) {
+      return 'green'
+    } else if (game.rating > 60) {
+      return 'low-green'
+    } else if (game.rating > 40) {
+      return 'yellow'
+    } else if (game.rating > 20) {
+      return 'orange'
+    }
+  }
 
   return (
-    <div>
-      <button onClick={() => setCartAndCheck(game)}>Add to Cart</button>
-      <h1>{game.title}</h1>
-      <p>{game.platform}</p>
-      <p>{game.price}</p>
-      {game.tags.map( (tag, i) => <p key={i}>{tag}</p>)}
-      <p>{game.rating}</p>
-      <img src={game.image} alt={game.title} />
-      <p>{cif}</p>
+    <div className="details">
+      <div className="details--conteiner-img">
+        <img src={game.image} alt={game.title} />
+      </div>
+
+      <div className="details--conteiner-data">
+        <h1>{game.title}</h1>
+        <div className="data-stock">
+          <p><CheckIcon className="check-icon" />En Stock</p>
+          <p><CheckIcon className="check-icon" />Descarga inmediata</p>
+        </div>
+
+        <div className="data-provider">
+          <p>Plataforma: {game.platform}</p>
+          <p>Cif: {cif}</p>
+        </div>
+
+        <div className="conteiner-tags">
+          {game.tags.map((tag, i) => <span className="tag" key={i}>{tag}</span>)}
+        </div>
+
+        <div className="conteiner-price-cart">
+          <div className="conteiner-price-raiting">
+            <p className={'rating ' + ratingClass()}>{game.rating}</p>
+            <p className="price">{game.price}€</p>
+          </div>
+
+          <button onClick={() => setCartAndCheck(game)}>Añadir al carrito</button>
+        </div>
+
+      </div>
     </div>
   );
 };

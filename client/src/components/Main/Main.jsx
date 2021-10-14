@@ -13,7 +13,7 @@ const Main = () => {
   const {search, setSearch} = useContext(searchContext)
 
   return (
-    <main>
+    <main className="main">
       <Switch>
         <Route path="/" component={Home} exact />
         <Route path="/cart" component={Cart} exact />

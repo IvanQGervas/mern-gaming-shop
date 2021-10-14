@@ -292,16 +292,6 @@ const data = [
         "rating": "78"
     },
     {
-        "title": "Office 2019 Home and Student PC",
-        "image": "https://s3.gaming-cdn.com/images/products/4997/271x377/juego-software-office-2019-home-and-student-pc-cover.jpg",
-        "price": "14.90",
-        "platform": "Microsoft Store",
-        "tags": [
-            "Otro"
-        ],
-        "rating": "74"
-    },
-    {
         "title": "Dark Souls 3 Deluxe Edition",
         "image": "https://s3.gaming-cdn.com/images/products/2060/271x377/juego-steam-dark-souls-3-deluxe-edition-cover.jpg",
         "price": "15.49",

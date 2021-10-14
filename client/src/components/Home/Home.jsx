@@ -1,6 +1,9 @@
 import React, { useState, useContext } from "react";
 import ReactPaginate from 'react-paginate';
 
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
 import Card from '../Card'
 
 import searchContext from '../../context/searchContext'
@@ -20,7 +23,7 @@ const Home = () => {
   // Paginación
   const [pageNumber, setPageNumber] = useState(0)
 
-  const gamesForPage = 10
+  const gamesForPage = 12
   const pagesVisited = pageNumber * gamesForPage
   const pageCount = Math.ceil(games.length / gamesForPage)
 
@@ -128,7 +131,7 @@ const Home = () => {
   // Boton valoración
   const handleClickAssessmentOrderDisabled = (num) => {
     games.sort((prev, next) => {
-      if (prev.rating < next.rating ) {
+      if (prev.rating < next.rating) {
         return 1
       } else if (prev.rating > next.rating) {
         return -1
@@ -167,56 +170,63 @@ const Home = () => {
 
 
   return (
-    <>
-      <h1>LOGO</h1>
+    <div className="home">
+      <div className="home--container">
+        <h1>¡Tus juegos favoritos al mejor precio!</h1>
+        <h2>Compra tus claves digitales y recibelas al instante.</h2>
 
-      <p>Filtros</p>
-      <div>
+        <div className="container-filter">
+          {/* <p>Filtros</p> */}
 
-        {
-          alphabeticalOrder === 0
-            ? <button onClick={() => handleClickAlphabeticalOrderDisabled(1)}>Ordenar A - Z</button>
-            : alphabeticalOrder === 1 ? <button onClick={() => handleClickAlphabeticalOrderStateOne(2)}>Ordenar Z - A</button>
-              : <button onClick={() => handleClickAlphabeticalOrderStateTwo(1)}>Ordenar A - Z</button>
-        }
+          {
+            alphabeticalOrder === 0
+              ? <button className="button-disabled" onClick={() => handleClickAlphabeticalOrderDisabled(1)}>Ordenar A - Z<KeyboardArrowDownIcon className="arrow-down" /></button>
+              : alphabeticalOrder === 1 ? <button className="button-activated" onClick={() => handleClickAlphabeticalOrderStateOne(2)}>Ordenar Z - A<KeyboardArrowUpIcon className="arrow-up" /></button>
+                : <button className="button-activated" onClick={() => handleClickAlphabeticalOrderStateTwo(1)}>Ordenar A - Z<KeyboardArrowDownIcon className="arrow-down" /></button>
+          }
 
-        {
-          priceOrder === 0
-            ? <button onClick={() => handleClickPriceOrderDisabled(1)}>Precio abajo</button>
-            : priceOrder === 1 ? <button onClick={() => handleClickPriceOrderStateOne(2)}>Precio arriba</button>
-              : <button onClick={() => handleClickPriceOrderStateTwo(1)}>Precio abajo</button>
-        }
+          {
+            priceOrder === 0
+              ? <button className="button-disabled" onClick={() => handleClickPriceOrderDisabled(1)}>Precio abajo<KeyboardArrowDownIcon className="arrow-down" /></button>
+              : priceOrder === 1 ? <button className="button-activated" onClick={() => handleClickPriceOrderStateOne(2)}>Precio arriba<KeyboardArrowUpIcon className="arrow-up" /></button>
+                : <button className="button-activated" onClick={() => handleClickPriceOrderStateTwo(1)}>Precio abajo<KeyboardArrowDownIcon className="arrow-down" /></button>
+          }
 
-        {
-          assessmentOrder === 0
-            ? <button onClick={() => handleClickAssessmentOrderDisabled(1)}>Valoración arriba</button>
-            : assessmentOrder === 1 ? <button onClick={() => handleClickAssessmentOrderStateOne(2)}>Valoración abajo</button>
-              : <button onClick={() => handleClickAssessmentOrderStateTwo(1)}>Valoración arriba</button>
-        }
+          {
+            assessmentOrder === 0
+              ? <button className="button-disabled" onClick={() => handleClickAssessmentOrderDisabled(1)}>Valoración arriba<KeyboardArrowUpIcon className="arrow-down" /></button>
+              : assessmentOrder === 1 ? <button className="button-activated" onClick={() => handleClickAssessmentOrderStateOne(2)}>Valoración abajo<KeyboardArrowDownIcon className="arrow-up" /></button>
+                : <button className="button-activated" onClick={() => handleClickAssessmentOrderStateTwo(1)}>Valoración arriba<KeyboardArrowUpIcon className="arrow-down" /></button>
+          }
+
+        </div>
+
+        <div className="container-products">
+          {search === ''
+            ? (
+              <>
+                {displayGamesPagination}
+                <ReactPaginate
+                  previousLabel={"anterior"}
+                  nextLabel={"siguiente"}
+                  pageCount={pageCount}
+                  onPageChange={changePage}
+                  containerClassName={"conteiner-pagination"}
+                  previousLinkClassName={"previous-pagination"}
+                  nextClassName={"next-pagination"}
+                  disabledClassName={"disabled-next-previus"}
+                  activeClassName={"page-active"}
+                  pageRangeDisplayed={4}
+                  marginPagesDisplayed={1}
+                />
+              </>
+            )
+            : displayGamesSearch
+          }
+        </div>
 
       </div>
-      {search === ''
-        ? (
-          <>
-            {displayGamesPagination}
-            <ReactPaginate
-              previousLabel={"anterior"}
-              nextLabel={"siguiente"}
-              pageCount={pageCount}
-              onPageChange={changePage}
-              containerClassName={"ESTILO"}
-              previousLinkClassName={"esto nose q ue es"}
-              nextClassName={"Estilos de todo y tal"}
-              disabledClassName={"algo de desactivar clase"}
-              activeClassName={"clase avtiva o nse"}
-              pageRangeDisplayed={4}
-              marginPagesDisplayed={1}
-            />
-          </>
-        )
-        : displayGamesSearch
-      }
-    </>
+    </div>
   );
 };
 
