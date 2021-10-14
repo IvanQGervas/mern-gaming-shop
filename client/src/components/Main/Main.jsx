@@ -1,73 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
+import { Switch, Route } from "react-router-dom";
 
-import data from '../../data'
+import Home from '../Home'
+import Cart from '../Cart'
+import Details from '../Details'
+import Error from '../Error'
+
+import searchContext from '../../context/searchContext'
 
 const Main = () => {
 
-  const [games, setGames] = useState([])
-  const [search, setSearch] = useState('')
-
-  useEffect(() => {
-
-    console.log('peticicion');
-    setGames(data)
-    // const getProducts = async function() {
-
-    // }
-
-  }, [])
-
-
-  const verlo = () => {
-
-    const numeros = games.map((e) => e.platform)
-    const unicos = [];
-
-    for (var i = 0; i < numeros.length; i++) {
-
-      const elemento = numeros[i];
-
-      if (!unicos.includes(numeros[i])) {
-        unicos.push(elemento);
-      }
-    }
-
-    console.log(unicos);
-  }
+  const {search, setSearch} = useContext(searchContext)
 
   return (
-    <main>
-
-      {search
-        ? 'busuqeda'
-        : 'Portada'
-      }
-
-
-
-      {verlo()}
-
-      { }
-      <form>
-        <input type="text" value={search} onChange={({ target }) => setSearch(target.value)} />
-      </form>
-      {games.filter((val) => {
-        if (search === '') {
-          return val
-        } else if (val.title.toLowerCase().includes(search.toLowerCase()) || val.platform.toLowerCase().includes(search.toLowerCase())) {
-          return val
-        }
-      })
-        .map((val, key) => {
-          return (
-            <div key={key}>
-              <img src={val.image} alt={val.title} />
-              <h3>{val.title}</h3>
-              <span>{val.price}</span>
-              <span>{val.platform}</span>
-            </div>
-          )
-        })}
+    <main className="main">
+      <Switch>
+        <Route path="/" component={Home} exact />
+        <Route path="/cart" component={Cart} exact />
+        <Route path="/game/:game" component={Details} exact />
+        <Route path="*" component={Error} exact />
+      </Switch>
     </main>
   )
 };
