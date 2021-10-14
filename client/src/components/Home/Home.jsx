@@ -3,6 +3,7 @@ import ReactPaginate from 'react-paginate';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import Card from '../Card'
 
@@ -39,7 +40,7 @@ const Home = () => {
 
   // Busqueda por nombre o plataforma
   const displayGamesSearch = games.filter((val) => {
-  if (val.title.toLowerCase().includes(search.toLowerCase()) || val.platform[0].platform.toLowerCase().includes(search.toLowerCase())) {
+    if (val.title.toLowerCase().includes(search.toLowerCase()) || val.platform[0].platform.toLowerCase().includes(search.toLowerCase())) {
       return val
     }
   }).map((val, key) => <Card key={key} game={val} />);
@@ -177,7 +178,6 @@ const Home = () => {
         <h2>Compra tus claves digitales y recibelas al instante.</h2>
 
         <div className="container-filter">
-          {/* <p>Filtros</p> */}
 
           {
             alphabeticalOrder === 0
@@ -202,29 +202,36 @@ const Home = () => {
 
         </div>
 
-        <div className="container-products">
-          {search === ''
-            ? (
-              <>
-                {displayGamesPagination}
-                <ReactPaginate
-                  previousLabel={"anterior"}
-                  nextLabel={"siguiente"}
-                  pageCount={pageCount}
-                  onPageChange={changePage}
-                  containerClassName={"conteiner-pagination"}
-                  previousLinkClassName={"previous-pagination"}
-                  nextClassName={"next-pagination"}
-                  disabledClassName={"disabled-next-previus"}
-                  activeClassName={"page-active"}
-                  pageRangeDisplayed={4}
-                  marginPagesDisplayed={1}
-                />
-              </>
-            )
-            : displayGamesSearch
-          }
-        </div>
+        {
+          games.length === 0
+            ? <div className="container-products">
+              <CircularProgress className="loader"/>
+            </div>
+            : <div className="container-products">
+              {search === ''
+                ? (
+                  <>
+                    {displayGamesPagination}
+                    <ReactPaginate
+                      previousLabel={"anterior"}
+                      nextLabel={"siguiente"}
+                      pageCount={pageCount}
+                      onPageChange={changePage}
+                      containerClassName={"conteiner-pagination"}
+                      previousLinkClassName={"previous-pagination"}
+                      nextClassName={"next-pagination"}
+                      disabledClassName={"disabled-next-previus"}
+                      activeClassName={"page-active"}
+                      pageRangeDisplayed={4}
+                      marginPagesDisplayed={1}
+                    />
+                  </>
+                )
+                : displayGamesSearch
+              }
+            </div>
+        }
+
 
       </div>
     </div>

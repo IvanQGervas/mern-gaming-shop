@@ -36,11 +36,9 @@ const Cart = () => {
                     <span>{(game.price * game.amount).toFixed(2)}€</span>
 
                     <div className="conteiner-amount">
-                      {/* <button onClick={}>-</button> */}
                       <RemoveCircleOutlineOutlinedIcon className="add-minus-icons" onClick={() => subtractAmountInCart(game)} />
                       <span>{game.amount}</span>
                       <AddCircleOutlineOutlinedIcon className="add-minus-icons" onClick={() => setCartAndCheck(game)} />
-                      {/* <button >+</button> */}
                     </div>
 
                     <DeleteOutlineIcon onClick={() => removeFromCart(game)} className="trash-icon" />
