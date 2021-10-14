@@ -19,6 +19,8 @@ const Home = () => {
   const [alphabeticalOrder, setAlphabeticalOrder] = useState(0) // 0 desactivado, 1 activado a-z, 2 activado z-a
   const [priceOrder, setPriceOrder] = useState(0) // 0 desactivado, 1 descendente, 2 ascendente
   const [assessmentOrder, setAssessmentOrder] = useState(0) // 0 desactivado, 1 descendente, 2 ascendente
+  //
+
 
   // Paginación
   const [pageNumber, setPageNumber] = useState(0)
@@ -34,11 +36,10 @@ const Home = () => {
   }
   //
 
+
   // Busqueda por nombre o plataforma
   const displayGamesSearch = games.filter((val) => {
-    if (search === '') {
-      return val
-    } else if (val.title.toLowerCase().includes(search.toLowerCase()) || val.platform.toLowerCase().includes(search.toLowerCase())) {
+  if (val.title.toLowerCase().includes(search.toLowerCase()) || val.platform[0].platform.toLowerCase().includes(search.toLowerCase())) {
       return val
     }
   }).map((val, key) => <Card key={key} game={val} />);
@@ -46,7 +47,7 @@ const Home = () => {
 
 
 
-  // Boton alfabetico
+  // Boton alfabético
   const handleClickAlphabeticalOrderDisabled = (num) => {
     games.sort((prev, next) => {
       if (prev.title > next.title) {
