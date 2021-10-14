@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from "react";
+import { Link, Redirect } from 'react-router-dom'
 
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
@@ -15,6 +15,12 @@ const Header = () => {
   const { search, setSearch } = useContext(searchContext)
   const { cart, setCart } = useContext(cartContext)
 
+  const [redirect, setRedirect] = useState(false)
+
+  const handleRedirect = () => {
+    setRedirect(!redirect)
+  }
+
   return (
     <header className="header">
       <div className="header--container">
@@ -22,7 +28,12 @@ const Header = () => {
           <img src={logo} alt="logo now gaming" />
         </Link>
         <div className="header--container-input">
-          <input type="text" onChange={({ target }) => setSearch(target.value)} />
+          <input placeholder="Far Cry 6, Steam, Ubisoft..." type="text" onChange={({ target }) => {
+                setSearch(target.value)
+                handleRedirect()
+              }
+            }
+          />
           <div className="conteiner-search-icon">
             <SearchIcon className="search-icon" />
           </div>
@@ -36,6 +47,16 @@ const Header = () => {
           <ShoppingCartIcon className="icon-cart" sx={{ fontSize: '30px' }} />
         </div>
       </div>
+
+      {/* {search !== ''
+        ? setRedirect(true)
+        : null
+      } */}
+      {redirect
+        ? <Redirect to="/" />
+        : null
+      }
+
     </header>
   );
 };
